@@ -27,7 +27,7 @@
 #***************************************************************************************
 // config variables for InputFinalGrades.php
 include('../../Redirect_modules.php');
-if(1)
+/*if(1)
 $commentsA_select = array('+'=>array('+','<img src=assets/plus.gif>','Exceptional'),
 			  ' '=>array('&middot;','<img src=assets/dot.gif>','Satisfactory'),
 			  '-'=>array('-','<img src=assets/minus.gif>','Needs Improvement'));
@@ -38,6 +38,14 @@ $commentsA_select = array('1'=>array('1 - Excellent','Excellent','Excellent'),
 			  '4'=>array('4 - Fair','Fair','Fair'),
 			  '5'=>array('5 - Poor','Poor','Poor'),
 			  '6'=>array('6 - Failure...','Failure...','Failure due to poor attendance'));
+*/
+$commentsA_select = array('4'=>array('4','4','Exceeds Expectations'), 
+                          '3.5'=>array('3.5','3.5','Meets Expectations'), 
+                          '3'=>array('3','3','Meets Expectations'), 
+                          '2.5'=>array('2.5','2.5','Meets Expectations'), 
+                          '2'=>array('2','2','Approaching Expectations'), 
+                          '1'=>array('1','1','Far Below Expectations')); 
+
 
 // config variables for StudentGrades.php
 // set this to false to disable anonamous grade statistics for parents and students
