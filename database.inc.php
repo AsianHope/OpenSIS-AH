@@ -319,7 +319,7 @@ function db_show_error($sql,$failnote,$additional='')
 	PopTable('header','Error');
 	$tb = debug_backtrace();
 	$error = $tb[1]['file'] . " at " . $tb[1]['line'];
-	/*echo "
+	echo "
 		<TABLE CELLSPACING=10 BORDER=0>
 			<TD align=right><b>Date:</TD>
 			<TD><pre>".date("m/d/Y h:i:s")."</pre></TD>
@@ -338,7 +338,7 @@ function db_show_error($sql,$failnote,$additional='')
 			<TD align=right><b>Additional Information:</b></TD>
 			<TD>$additional</TD>
 		</TR>
-		</TABLE>";*/
+		</TABLE>";
 		echo "
 		<TABLE CELLSPACING=10 BORDER=0>
 			<TR><TD align=right><b>Date:</TD>
