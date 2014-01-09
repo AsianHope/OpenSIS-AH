@@ -488,7 +488,7 @@ if(User('PROFILE')!='student')
 	$sql = "SELECT DISTINCT sy.SYEAR FROM school_years sy,staff s WHERE s.SYEAR=sy.SYEAR AND s.USERNAME=(SELECT USERNAME FROM staff WHERE STAFF_ID='$_SESSION[STAFF_ID]')";
 else
 	$sql = "SELECT DISTINCT sy.SYEAR FROM school_years sy,student_enrollment se WHERE se.SYEAR=sy.SYEAR AND se.STUDENT_ID='$_SESSION[STUDENT_ID]'";
-$years_RET = DBGet(DBQuery($sql));
+//$years_RET = DBGet(DBQuery($sql)); Until they update above, no need to run this!
 }
 else
 $years_RET = array(1=>array('SYEAR'=>"$DefaultSyear"));
