@@ -179,7 +179,7 @@ switch (User('PROFILE'))
         DrawBC ($welcome.' | Role: Teacher');
         $att_qry=DBGet(DBQuery('SELECT Count(1) as count FROM  profile_exceptions WHERE MODNAME 
                   IN (\'Attendance/TakeAttendance.php\',\'Attendance/DailySummary.php\',\'Attendance/StudentSummary\') AND 
-                  PROFILE_ID=(SELECT id FROM user_profiles WHERE PROFILE=\'teacher\') AND CAN_USE=\'Y\' '));
+                  PROFILE_ID=(SELECT id FROM user_profiles WHERE PROFILE=\'teacher\' LIMIT 0,1) AND CAN_USE=\'Y\' '));
         
                     $reassign_cp=  DBGet(DBQuery('SELECT COURSE_PERIOD_ID ,TEACHER_ID,PRE_TEACHER_ID FROM teacher_reassignment WHERE ASSIGN_DATE <= \''.date('Y-m-d').'\' AND UPDATED=\'N\' '));
                     foreach($reassign_cp as $re_key=>$reassign_cp_value)
