@@ -284,12 +284,12 @@ if($_REQUEST['modfunc']=='save')
 //					echo '<BR><BR><BR>';
 				//DrawHeader(Config('TITLE').' Report Card');
 				echo '<table border=0>';
-                                $picture_c_jpg=$StudentPicturesPath.$mps[key($mps)][1]['STUDENT_ID'].'.JPG';
+                                /*$picture_c_jpg=$StudentPicturesPath.$mps[key($mps)][1]['STUDENT_ID'].'.JPG';
                                 $picture_l_jpg=$StudentPicturesPath.$mps[key($mps)][1]['STUDENT_ID'].'.jpg';
                                 if(file_exists($picture_c_jpg) || file_exists($picture_l_jpg))
                                 echo '<tr><td><IMG SRC="'.$picture_c_jpg.'" width=150 class=pic></td></tr>';
 				else
-                                echo '<tr><td><IMG src="assets/noimage.jpg" width=150 class=pic></td></tr>';
+                                echo '<tr><td><IMG src="assets/noimage.jpg" width=150 class=pic></td></tr>'; */
                                 echo '<tr><td>Student Name :</td>';
 				echo '<td>'.$mps[key($mps)][1]['FULL_NAME'].'</td></tr>';
 				echo '<tr><td>Student ID :</td>';
