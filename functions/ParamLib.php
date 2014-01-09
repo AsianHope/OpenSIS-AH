@@ -1328,7 +1328,7 @@ function paramlib_validation($feild,$value)
 
     elseif($feild==TYPE)
    {
-      $val=clean_param($value,PARAM_ALPHAEXTS);
+      $val=clean_param($value,PARAM_CAL_TITLE);
    }
 
     elseif($feild==SELECT_OPTIONS)
