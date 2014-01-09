@@ -67,7 +67,7 @@ if(CONFIG_INC==0)
     $UserPicturesPath = 'assets/UserPhotos/';
     $openSISTitle = 'openSIS Student Information System';
     $openSISAdmins = '1';			// can be list such as '1,23,50' - note, these should be id's in the DefaultSyear, otherwise they can't login anyway
-    $openSISNotifyAddress = '';
+    $openSISNotifyAddress = 'it@asianhope.org';
 
     $openSISModules = array(
         'School_Setup'=>true,
