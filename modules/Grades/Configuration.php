@@ -56,13 +56,10 @@ echo '</TD></TR><TR><TD width=1></TD>';
 echo '<TD><fieldset>';
 echo '<legend><b>General</b></legend>';
 echo '<TABLE>';
-if(count($grades)>0)
-{
-	//if(!$programconfig['ROUNDING'])
-	//	$programconfig['ROUNDING'] = 'NORMAL';
-	//echo '<TR><TD colspan=3>'.DrawRoundedRect('<TABLE><TR><TD colspan=3><B>Score Rounding</B></TD></TR><TR><TD><INPUT type=radio name=values[ROUNDING] value=UP'.(($programconfig['ROUNDING']=='UP')?' CHECKED':'').'>Up</TD><TD><INPUT type=radio name=values[ROUNDING] value=DOWN'.(($programconfig['ROUNDING']=='DOWN')?' CHECKED':'').'>Down</TD><TD><INPUT type=radio name=values[ROUNDING] value=NORMAL'.(($programconfig['ROUNDING']=='NORMAL')?' CHECKED':'').'>Normal</TD><TD><INPUT type=radio name=values[ROUNDING] value=\'\''.(($programconfig['ROUNDING']=='')?' CHECKED':'').'>None</TD></TR></TABLE>').'</TD></TR>';
+	if(!$programconfig['ROUNDING'])
+		$programconfig['ROUNDING'] = 'NORMAL';
 	echo '<TR><TD colspan=3><TABLE><TR><TD colspan=3><B>Score Rounding</B></TD></TR><TR><TD><INPUT type=radio name=values[ROUNDING] value=UP'.(($programconfig['ROUNDING']=='UP')?' CHECKED':'').'>Up</TD><TD><INPUT type=radio name=values[ROUNDING] value=DOWN'.(($programconfig['ROUNDING']=='DOWN')?' CHECKED':'').'>Down</TD><TD><INPUT type=radio name=values[ROUNDING] value=NORMAL'.(($programconfig['ROUNDING']=='NORMAL')?' CHECKED':'').'>Normal</TD><TD><INPUT type=radio name=values[ROUNDING] value=\'\''.(($programconfig['ROUNDING']=='')?' CHECKED':'').'>None</TD></TR></TABLE></TD></TR>';
-}
+
 if(!$programconfig['ASSIGNMENT_SORTING'])
 	$programconfig['ASSIGNMENT_SORTING'] = 'ASSIGNMENT_ID';
 echo '<TR><TD colspan=3><TABLE><TR><TD colspan=3><b>Assignment Sorting</b></td></tr><tr><td><input type=radio name=values[ASSIGNMENT_SORTING] value=ASSIGNMENT_ID'.(($programconfig['ASSIGNMENT_SORTING']=='ASSIGNMENT_ID')?' CHECKED':'').'>Newest First</TD><TD><INPUT type=radio name=values[ASSIGNMENT_SORTING] value=DUE_DATE'.(($programconfig['ASSIGNMENT_SORTING']=='DUE_DATE')?' CHECKED':'').'>Due Date</TD><TD><INPUT type=radio name=values[ASSIGNMENT_SORTING] value=ASSIGNED_DATE'.(($programconfig['ASSIGNMENT_SORTING']=='ASSIGNED_DATE')?' CHECKED':'').'>Assigned Date</TD><TD><INPUT type=radio name=values[ASSIGNMENT_SORTING] value=UNGRADED'.(($programconfig['ASSIGNMENT_SORTING']=='UNGRADED')?' CHECKED':'').'>Ungraded</TD></TR></TABLE></TD></TR>';
