@@ -374,7 +374,7 @@ function _makeExtraAssnCols($assignment_id,$column)
                                         $points_m = round($points);
                                 else 
                                         $points_m=$points;
-                                $make_grade_points=($points_m/$total_points[$assignment_id])*100;
+                                $make_grade_points=round(($points_m/$total_points[$assignment_id])*100,2);
                                 if($total_points[$assignment_id]!=0)
                                 {
 					if($points!='-1')
@@ -467,7 +467,7 @@ function _makeExtraCols($assignment_id,$column)
                     $points_m = round($points);
             else 
                     $points_m=$points;
-            $make_letter_points=($points_m/$total_points[$assignment_id])*100;
+            $make_letter_points=round(($points_m/$total_points[$assignment_id])*100,2);
 	if($total_points[$assignment_id]!=0)
         {
 		if($points!='*')
