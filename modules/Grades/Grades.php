@@ -171,7 +171,7 @@ else
                            
 				$points_RET = DBGet(DBQuery('SELECT DISTINCT s.STUDENT_ID, gt.ASSIGNMENT_TYPE_ID, 
                                     sum('.db_case(array('gg.POINTS',"'-1'","'0'",'gg.POINTS')).') AS PARTIAL_POINTS,
-                                        sum('.db_case(array('gg.POINTS','\'-1\' OR gg.POINTS IS NULL OR (ga.due_date <  (select DISTINCT ssm.start_date  from student_enrollment ssm where ssm.STUDENT_ID=s.STUDENT_ID AND ssm.SYEAR=\''.UserSyear().'\' AND ssm.SCHOOL_ID='.UserSchool().' AND (ssm.START_DATE IS NOT NULL AND (CURRENT_DATE<=ssm.END_DATE OR CURRENT_DATE>=ssm.END_DATE OR  ssm.END_DATE IS NULL)) order by ssm.start_date desc limit 1
+                                        sum('.db_case(array('gg.POINTS','\'-1\' OR (ga.due_date <  (select DISTINCT ssm.start_date  from student_enrollment ssm where ssm.STUDENT_ID=s.STUDENT_ID AND ssm.SYEAR=\''.UserSyear().'\' AND ssm.SCHOOL_ID='.UserSchool().' AND (ssm.START_DATE IS NOT NULL AND (CURRENT_DATE<=ssm.END_DATE OR CURRENT_DATE>=ssm.END_DATE OR  ssm.END_DATE IS NULL)) order by ssm.start_date desc limit 1
 )  ) ',"'0'",'ga.POINTS')).') AS PARTIAL_TOTAL, gt.FINAL_GRADE_PERCENT FROM students s JOIN schedule ss ON (ss.STUDENT_ID=s.STUDENT_ID AND ss.COURSE_PERIOD_ID=\''.$course_period_id.'\') JOIN gradebook_assignments ga ON ((ga.COURSE_PERIOD_ID=ss.COURSE_PERIOD_ID OR ga.COURSE_ID=\''.$course_id.'\' AND ga.STAFF_ID=\''.User('STAFF_ID').'\') AND ga.MARKING_PERIOD_ID=\''.UserMP().'\') LEFT OUTER JOIN gradebook_grades gg ON (gg.STUDENT_ID=s.STUDENT_ID AND gg.ASSIGNMENT_ID=ga.ASSIGNMENT_ID AND gg.COURSE_PERIOD_ID=ss.COURSE_PERIOD_ID)
                                      
                                         ,gradebook_assignment_types gt WHERE gt.ASSIGNMENT_TYPE_ID=ga.ASSIGNMENT_TYPE_ID AND gt.COURSE_ID=\''.$course_id.'\' AND ((ga.ASSIGNED_DATE IS NULL OR CURRENT_DATE>=ga.ASSIGNED_DATE) AND (ga.DUE_DATE IS NULL OR CURRENT_DATE>=ga.DUE_DATE) OR gg.POINTS IS NOT NULL) GROUP BY s.STUDENT_ID,ss.START_DATE,gt.ASSIGNMENT_TYPE_ID,gt.FINAL_GRADE_PERCENT'),array(),array('STUDENT_ID'));
@@ -179,7 +179,7 @@ else
 			else
                         {
                             $points_RET = DBGet(DBQuery('SELECT DISTINCT s.STUDENT_ID,\'-1\' AS ASSIGNMENT_TYPE_ID, sum('.db_case(array('gg.POINTS',"'-1'","'0'",'gg.POINTS')).') AS PARTIAL_POINTS,
-                                sum('.db_case(array('gg.POINTS','\'-1\' OR gg.POINTS IS NULL OR (ga.due_date < (select DISTINCT ssm.start_date  from student_enrollment ssm where ssm.STUDENT_ID=s.STUDENT_ID AND ssm.SYEAR=\''.UserSyear().'\' AND ssm.SCHOOL_ID='.UserSchool().' AND (ssm.START_DATE IS NOT NULL AND (CURRENT_DATE<=ssm.END_DATE OR CURRENT_DATE>=ssm.END_DATE OR  ssm.END_DATE IS NULL)) order by ssm.start_date desc limit 1) ) ',"'0'",'ga.POINTS')).') AS PARTIAL_TOTAL,\'1\' AS FINAL_GRADE_PERCENT 
+                                sum('.db_case(array('gg.POINTS','\'-1\' OR (ga.due_date < (select DISTINCT ssm.start_date  from student_enrollment ssm where ssm.STUDENT_ID=s.STUDENT_ID AND ssm.SYEAR=\''.UserSyear().'\' AND ssm.SCHOOL_ID='.UserSchool().' AND (ssm.START_DATE IS NOT NULL AND (CURRENT_DATE<=ssm.END_DATE OR CURRENT_DATE>=ssm.END_DATE OR  ssm.END_DATE IS NULL)) order by ssm.start_date desc limit 1) ) ',"'0'",'ga.POINTS')).') AS PARTIAL_TOTAL,\'1\' AS FINAL_GRADE_PERCENT 
                                     FROM students s JOIN schedule ss ON (ss.STUDENT_ID=s.STUDENT_ID AND ss.COURSE_PERIOD_ID=\''.$course_period_id.'\') JOIN gradebook_assignments ga ON ((ga.COURSE_PERIOD_ID=ss.COURSE_PERIOD_ID OR ga.COURSE_ID=\''.$course_id.'\' AND ga.STAFF_ID=\''.User('STAFF_ID').'\') AND ga.MARKING_PERIOD_ID=\''.UserMP().'\') LEFT OUTER JOIN gradebook_grades gg ON (gg.STUDENT_ID=s.STUDENT_ID AND gg.ASSIGNMENT_ID=ga.ASSIGNMENT_ID AND gg.COURSE_PERIOD_ID=ss.COURSE_PERIOD_ID)
                                     WHERE ((ga.ASSIGNED_DATE IS NULL OR CURRENT_DATE>=ga.ASSIGNED_DATE) AND (ga.DUE_DATE IS NULL OR CURRENT_DATE>=ga.DUE_DATE) OR gg.POINTS IS NOT NULL) GROUP BY s.STUDENT_ID,ss.START_DATE'),array(),array('STUDENT_ID'));
                         }
@@ -307,6 +307,7 @@ function _makeExtraAssnCols($assignment_id,$column)
 //			$total = floor($total);
 //		elseif($_SESSION['ROUNDING']=='NORMAL')
 //			$total = round($total);
+                                //return 'Totals' result
 				return '<TABLE border=0 cellspacing=0 cellpadding=0 class=LO_field><TR><TD>'.$total.'</TD><TD>&nbsp;/&nbsp;</TD><TD>'.$total_points.'</TD></TR></TABLE>';
 			}
 			else
@@ -324,6 +325,7 @@ function _makeExtraAssnCols($assignment_id,$column)
 //			$points = floor($points);
 //		elseif($_SESSION['ROUNDING']=='NORMAL')
 //			$points = round($points,2);
+                                //return individual assignment result
 				return '<TABLE border=0 cellspacing=0 cellpadding=0 class=LO_field><TR><TD>'.TextInput($points,'values['.$THIS_RET['STUDENT_ID'].']['.$assignment_id.'][POINTS]','',' size=2 maxlength=7 tabindex='.$tabindex).'</TD><TD>&nbsp;/&nbsp;</TD><TD>'.$total_points[$assignment_id].'</TD></TR></TABLE>';
                             
                                
@@ -408,6 +410,7 @@ function _makeExtraStuCols($value,$column)
 				$value = '*';
 			elseif(strpos($value,'.'))
 				$value = rtrim(rtrim($value,'0'),'.');
+                        //return student itemized assignment results
 			return '<TABLE border=0 cellspacing=0 cellpadding=0 class=LO_field><TR><TD>'.TextInput($value,'values['.$THIS_RET['STUDENT_ID'].']['.$THIS_RET['ASSIGNMENT_ID'].'][POINTS]','',' size=2 maxlength=7 tabindex='.$tabindex).'</TD><TD>&nbsp;/&nbsp;</TD><TD>'.$THIS_RET['TOTAL_POINTS'].'</TD></TR></TABLE>';
 		break;
 		case 'LETTER_GRADE':

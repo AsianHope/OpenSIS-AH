@@ -198,7 +198,7 @@ function _makeExtra($value,$column)
 		if($THIS_RET['TOTAL_POINTS']!='0')
 			if($value!='-1')
 			{
-				if(($THIS_RET['DUE'] || $value!='')&& $value!='')
+				if($THIS_RET['DUE'])
 				{
 					$student_points[$THIS_RET['ASSIGNMENT_TYPE_ID']] += $value;
 					$total_points[$THIS_RET['ASSIGNMENT_TYPE_ID']] += $THIS_RET['TOTAL_POINTS'];
