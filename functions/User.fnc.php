@@ -40,7 +40,7 @@ function User($item)
 		}
 		elseif($_SESSION['STUDENT_ID'])
 		{
-			$sql = 'SELECT s.USERNAME,CONCAT(s.FIRST_NAME,\' \',s.LAST_NAME) AS NAME,\'student\' AS PROFILE,\'0\' AS PROFILE_ID,CONCAT(\',\',se.SCHOOL_ID,\',\') AS SCHOOLS,se.SYEAR,se.SCHOOL_ID FROM students s,student_enrollment se WHERE s.STUDENT_ID='.$_SESSION[STUDENT_ID].' AND se.SYEAR=\''.$_SESSION[UserSyear].'\'  AND se.END_DATE IS NULL AND se.STUDENT_ID=s.STUDENT_ID ORDER BY se.END_DATE DESC LIMIT 1';
+			$sql = 'SELECT s.USERNAME,CONCAT(s.FIRST_NAME,\' \',s.LAST_NAME) AS NAME,\'student\' AS PROFILE,\'0\' AS PROFILE_ID,CONCAT(\',\',se.SCHOOL_ID,\',\') AS SCHOOLS,se.SYEAR,se.SCHOOL_ID FROM students s,student_enrollment se WHERE s.STUDENT_ID='.$_SESSION[STUDENT_ID].' AND se.SYEAR=\''.$_SESSION[UserSyear].'\'  AND (se.END_DATE >\''.date("Y-m-d").'\' OR se.END_DATE IS NULL) AND se.STUDENT_ID=s.STUDENT_ID ORDER BY se.END_DATE DESC LIMIT 1';
                         $_openSIS['User'] = DBGet(DBQuery($sql));
 			$_SESSION['UserSchool'] = $_openSIS['User'][1]['SCHOOL_ID'];
 		}
