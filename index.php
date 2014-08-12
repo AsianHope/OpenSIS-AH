@@ -271,7 +271,8 @@ if(!$login_RET && !$student_RET)
 		if ($ad_f_cnt && $ad_f_cnt!=0 && $failed_login>$ad_f_cnt && $profile_id!=1)
 		{
 
-		  DBQuery("UPDATE staff SET IS_DISABLE='Y' WHERE STAFF_ID='".$_SESSION['STAFF_ID']."' AND SYEAR='$_SESSION[UserSyear]' AND PROFILE_ID!=1");
+		  DBQuery("UPDATE staff SET IS_DISABLE='Y' WHERE STAFF_ID='".$_SESSION['STAFF_ID']." AND PROFILE_ID!=1");
+		  #DBQuery("UPDATE staff SET IS_DISABLE='Y' WHERE STAFF_ID='".$_SESSION['STAFF_ID']."' AND SYEAR='$_SESSION[UserSyear]' AND PROFILE_ID!=1");
 
 		  session_destroy();
 		  #header("location:index.php?modfunc=logout");
@@ -470,7 +471,7 @@ if(!$login_RET && !$student_RET)
                 if($get_rec[1]['RECORD']!=0)
                 {
                     unset($error);
-                   $error[] = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Your opensis account is disabled."; 
+                   $error[] = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Your opensis account is disabled!"; 
                 }
             }
             if($get_ac_st==$get_tot_st && $get_tot_st!=0)
