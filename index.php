@@ -468,7 +468,7 @@ if(!$login_RET && !$student_RET)
                 
                 
                 $get_rec=DBGet(DBQuery("SELECT COUNT(1) as RECORD FROM students s,student_enrollment se WHERE UPPER(s.USERNAME)=UPPER('".optional_param('USERNAME', 0, PARAM_RAW)."') AND s.STUDENT_ID=se.STUDENT_ID AND (se.DROP_CODE='4' OR se.DROP_CODE IS NULL) AND (se.END_DATE<='".date('Y-m-d')."' OR se.END_DATE IS NULL) AND se.SYEAR=(SELECT MAX(SYEAR) FROM student_enrollment WHERE STUDENT_ID=s.STUDENT_ID ) "));
-                if($get_rec[1]['RECORD']!=0)
+                if($get_rec[1]['RECORD']==0)
                 {
                     unset($error);
                    $error[] = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Your opensis account is disabled!"; 
