@@ -244,7 +244,7 @@ switch (User('PROFILE'))
         if(Preferences('HIDE_ALERTS')!='Y')
         {
             // warn if missing attendance
-            /*$RET = DBGET(DBQuery("SELECT DISTINCT acc.SCHOOL_DATE,cp.TITLE FROM attendance_calendar acc,course_periods cp,school_periods sp,schedule sch WHERE acc.SYEAR='".UserSyear()."' AND (acc.MINUTES IS NOT NULL AND acc.MINUTES>0) AND cp.SCHOOL_ID=acc.SCHOOL_ID AND cp.SYEAR=acc.SYEAR AND acc.SCHOOL_DATE<'".DBDate()."' AND cp.CALENDAR_ID=acc.CALENDAR_ID AND cp.FILLED_SEATS<>0 AND acc.SCHOOL_DATE>=sch.START_DATE AND acc.SCHOOL_DATE<'".DBDate()."' AND cp.TEACHER_ID='".User('STAFF_ID')."'
+           $RET = DBGET(DBQuery("SELECT DISTINCT acc.SCHOOL_DATE,cp.TITLE FROM attendance_calendar acc,course_periods cp,school_periods sp,schedule sch WHERE acc.SYEAR='".UserSyear()."' AND (acc.MINUTES IS NOT NULL AND acc.MINUTES>0) AND cp.SCHOOL_ID=acc.SCHOOL_ID AND cp.SYEAR=acc.SYEAR AND acc.SCHOOL_DATE<'".DBDate()."' AND cp.CALENDAR_ID=acc.CALENDAR_ID AND cp.FILLED_SEATS<>0 AND acc.SCHOOL_DATE>=sch.START_DATE AND acc.SCHOOL_DATE<'".DBDate()."' AND cp.TEACHER_ID='".User('STAFF_ID')."'
         AND cp.MARKING_PERIOD_ID IN (SELECT MARKING_PERIOD_ID FROM school_years WHERE SCHOOL_ID=acc.SCHOOL_ID AND acc.SCHOOL_DATE BETWEEN START_DATE AND END_DATE UNION SELECT MARKING_PERIOD_ID FROM school_semesters WHERE SCHOOL_ID=acc.SCHOOL_ID AND acc.SCHOOL_DATE BETWEEN START_DATE AND END_DATE UNION SELECT MARKING_PERIOD_ID FROM school_quarters WHERE SCHOOL_ID=acc.SCHOOL_ID AND acc.SCHOOL_DATE BETWEEN START_DATE AND END_DATE)
         AND sp.PERIOD_ID=cp.PERIOD_ID AND (sp.BLOCK IS NULL AND position(substring('UMTWHFS' FROM DAYOFWEEK(acc.SCHOOL_DATE) FOR 1) IN cp.DAYS)>0
             OR sp.BLOCK IS NOT NULL AND acc.BLOCK IS NOT NULL AND sp.BLOCK=acc.BLOCK)
@@ -258,7 +258,7 @@ switch (User('PROFILE'))
 	
    ListOutput_missing_attn_teach_port($RET,array('SCHOOL_DATE'=>'Date','TITLE'=>'Period -Teacher'),'Period','Periods',$link,array(),array('save'=>false,'search'=>false));
                 echo '</p>';
-            }*/
+            }
 			if($_REQUEST['modfunc']=='attn')
 {
     header("Location:Modules.php?modname=Users/TeacherPrograms.php?include=Attendance/TakeAttendance.php");
