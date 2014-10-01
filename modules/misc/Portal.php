@@ -251,6 +251,7 @@ switch (User('PROFILE'))
         AND NOT EXISTS(SELECT '' FROM attendance_completed ac WHERE ac.SCHOOL_DATE=acc.SCHOOL_DATE AND ac.STAFF_ID=cp.TEACHER_ID AND ac.PERIOD_ID=cp.PERIOD_ID) AND cp.DOES_ATTENDANCE='Y' ORDER BY cp.TITLE,acc.SCHOOL_DATE"),array('SCHOOL_DATE'=>'ProperDate'));
             if (count($RET))
             {
+		$_SESSION['take_mssn_attn'] = true;
                 echo '<p><font color=#FF0000><b>Warning!!</b></font> - You have missing attendance data:';
                $modname = 'Users/TeacherPrograms.php?include=Attendance/TakeAttendance.php';
     $link['remove']['link'] = "Modules.php?modname=$modname&modfunc=attn";
