@@ -47,7 +47,7 @@ if($_REQUEST['modfunc']=='save')
 	$st_list = '\''.implode('\',\'',$_REQUEST['st_arr']).'\'';
 	$extra['WHERE'] = ' AND s.STUDENT_ID IN ('.$st_list.')';
 
-	$extra['SELECT'] .= ',rc_cp.TEACHER_ID,rc_cp.COURSE_WEIGHT,rpg.TITLE as GRADE_TITLE,sg1.GRADE_PERCENT,sg1.WEIGHTED_GP,sg1.UNWEIGHTED_GP ,sg1.CREDIT_ATTEMPTED , sg1.COMMENT as COMMENT_TITLE,sg1.STUDENT_ID,sg1.COURSE_PERIOD_ID,sg1.MARKING_PERIOD_ID,c.TITLE as COURSE_TITLE,rc_cp.TITLE AS TEACHER,sp.SORT_ORDER,
+	$extra['SELECT'] .= ',rc_cp.TEACHER_ID,rc_cp.COURSE_WEIGHT,rpg.TITLE as GRADE_TITLE,sg1.GRADE_PERCENT,sg1.GRADE_LETTER,sg1.WEIGHTED_GP,sg1.UNWEIGHTED_GP ,sg1.CREDIT_ATTEMPTED , sg1.COMMENT as COMMENT_TITLE,sg1.STUDENT_ID,sg1.COURSE_PERIOD_ID,sg1.MARKING_PERIOD_ID,c.TITLE as COURSE_TITLE,rc_cp.TITLE AS TEACHER,sp.SORT_ORDER,
                                                     stat.cum_unweighted_factor*sc.reporting_gp_scale as UNWEIGHTED_GPA';
 	if($_REQUEST['elements']['period_absences']=='Y')
 		$extra['SELECT'] .= ',rc_cp.DOES_ATTENDANCE,
@@ -232,7 +232,7 @@ if($_REQUEST['modfunc']=='save')
 //                                                            $mps[$mp][1]['GRADE_PERCENT'] = floor($mps[$mp][1]['GRADE_PERCENT']);
 //                                                    elseif($_SESSION['ROUNDING']=='NORMAL')
 //                                                            $mps[$mp][1]['GRADE_PERCENT'] = round($mps[$mp][1]['GRADE_PERCENT']);
-							$grades_RET[$i][$mp] .= '<br>'.$mps[$mp][1]['GRADE_PERCENT'].'%';
+							$grades_RET[$i][$mp] = $mps[$mp][1]['GRADE_LETTER'].'<br>'.$mps[$mp][1]['GRADE_PERCENT'].'%';
                                                 }
 						$last_mp = $mp;
 					}
