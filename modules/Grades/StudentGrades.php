@@ -77,9 +77,9 @@ if(!$_REQUEST['id'])
 	DrawHeader('Totals',"<A HREF=Modules.php?modname=$_REQUEST[modname]&id=all>Expand All</A>");
 	$courses_RET = DBGet(DBQuery('SELECT c.TITLE AS COURSE_TITLE,cp.TITLE,cp.COURSE_PERIOD_ID,cp.COURSE_ID,cp.TEACHER_ID AS STAFF_ID FROM schedule s,course_periods cp,courses c WHERE s.SYEAR=\''.UserSyear().'\' AND cp.COURSE_PERIOD_ID=s.COURSE_PERIOD_ID AND s.MARKING_PERIOD_ID IN ('.GetAllMP($MP_TYPE,UserMP()).') AND (\''.date('Y-m-d',strtotime(DBDate())).'\' BETWEEN s.START_DATE AND s.END_DATE OR \''.date('Y-m-d',strtotime(DBDate())).'\'>=s.START_DATE AND s.END_DATE IS NULL) AND s.STUDENT_ID=\''.UserStudentID().'\' AND cp.GRADE_SCALE_ID IS NOT NULL'.(User('PROFILE')=='teacher'?' AND (cp.TEACHER_ID=\''.User('STAFF_ID').'\' OR cp.SECONDARY_TEACHER_ID=\''.User('STAFF_ID').'\')':'').' AND c.COURSE_ID=cp.COURSE_ID ORDER BY cp.COURSE_ID'),array(),array('COURSE_PERIOD_ID'));
         if($display_rank=='Y')
-        $LO_columns = array('TITLE'=>'Course Title','TEACHER'=>'Teacher','PERCENT'=>'Percent','GRADE'=>'Letter','UNGRADED'=>'Ungraded')+($do_stats?array('BAR1'=>'Grade Range(%)','BAR2'=>'Class Rank'):array());
+        $LO_columns = array('TITLE'=>'Course Title','TEACHER'=>'Teacher','PERCENT'=>'Percent','GRADE'=>'Letter','UNGRADED'=>'Ungraded');
         else
-            $LO_columns = array('TITLE'=>'Course Title','TEACHER'=>'Teacher','PERCENT'=>'Percent','GRADE'=>'Letter','UNGRADED'=>'Ungraded')+($do_stats?array('BAR1'=>'Grade Range(%)'):array());
+            $LO_columns = array('TITLE'=>'Course Title','TEACHER'=>'Teacher','PERCENT'=>'Percent','GRADE'=>'Letter','UNGRADED'=>'Ungraded');
 
 	if(count($courses_RET))
 	{
@@ -370,9 +370,9 @@ if($_REQUEST['id']=='all')
 			$all_RET = DBGet(DBQuery('SELECT ga.ASSIGNMENT_ID,gg.POINTS,min('.db_case(array('gg.POINTS',"'-1'",'ga.POINTS','gg.POINTS')).') AS MIN,max('.db_case(array('gg.POINTS',"'-1'",'0','gg.POINTS')).') AS MAX,'.db_case(array("sum(".db_case(array('gg.POINTS',"'-1'",'0','1')).")","'0'","'0'","sum(".db_case(array('gg.POINTS',"'-1'",'0','gg.POINTS')).') / sum('.db_case(array('gg.POINTS',"'-1'",'0','1')).")")).' AS AVG,sum(CASE WHEN gg.POINTS<=g.POINTS AND gg.STUDENT_ID!=g.STUDENT_ID THEN 1 ELSE 0 END) AS LOWER,sum(CASE WHEN gg.POINTS>g.POINTS THEN 1 ELSE 0 END) AS HIGHER FROM gradebook_grades gg,gradebook_assignments ga LEFT OUTER JOIN gradebook_grades g ON (g.COURSE_PERIOD_ID=\''.$course['COURSE_PERIOD_ID'].'\' AND g.ASSIGNMENT_ID=ga.ASSIGNMENT_ID AND g.STUDENT_ID=\''.UserStudentID().'\'),gradebook_assignment_types at WHERE (ga.COURSE_PERIOD_ID=\''.$course['COURSE_PERIOD_ID'].'\' OR ga.COURSE_ID=\''.$course['COURSE_ID'].'\' AND ga.STAFF_ID=\''.$staff_id.'\') AND ga.MARKING_PERIOD_ID=\''.UserMP().'\' AND gg.ASSIGNMENT_ID=ga.ASSIGNMENT_ID AND at.ASSIGNMENT_TYPE_ID=ga.ASSIGNMENT_TYPE_ID AND ((ga.ASSIGNED_DATE IS NOT NULL )  OR g.POINTS IS NOT NULL) AND ga.POINTS!=\'0\' GROUP BY ga.ASSIGNMENT_ID'),array(),array('ASSIGNMENT_ID'));
 			//echo '<pre>'; var_dump($all_RET); echo '</pre>';
                                                     if($display_rank=='Y')
-			$LO_columns = array('TITLE'=>'Title','CATEGORY'=>'Category','POINTS'=>'Points / Possible','PERCENT'=>'Percent','LETTER'=>'Letter','ASSIGNED_DATE'=>'Assigned Date','DUE_DATE'=>'Due Date')+($do_stats?array('BAR1'=>'Grade Range','BAR2'=>'Class Rank'):array());
+			$LO_columns = array('TITLE'=>'Title','CATEGORY'=>'Category','POINTS'=>'Points / Possible','PERCENT'=>'Percent','LETTER'=>'Letter','ASSIGNED_DATE'=>'Assigned Date','DUE_DATE'=>'Due Date');
                                                     else
-                                                            $LO_columns = array('TITLE'=>'Title','CATEGORY'=>'Category','POINTS'=>'Points / Possible','PERCENT'=>'Percent','LETTER'=>'Letter','ASSIGNED_DATE'=>'Assigned Date','DUE_DATE'=>'Due Date')+($do_stats?array('BAR1'=>'Grade Range'):array());
+                                                            $LO_columns = array('TITLE'=>'Title','CATEGORY'=>'Category','POINTS'=>'Points / Possible','PERCENT'=>'Percent','LETTER'=>'Letter','ASSIGNED_DATE'=>'Assigned Date','DUE_DATE'=>'Due Date');
 
 			$LO_ret = array(0=>array());
 
