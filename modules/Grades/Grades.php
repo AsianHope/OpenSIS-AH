@@ -279,6 +279,7 @@ echo $_REQUEST['assignment_id']?'<CENTER>'.SubmitButton('Save','','class=btn_med
 echo '</FORM>';
 function _makeExtraAssnCols($assignment_id,$column)
 {	global $THIS_RET,$total_points,$current_RET,$points_RET,$tabindex,$max_allowed;
+	    if(!$_SESSION['ROUNDING'])
             $rounding=DBGet(DBQuery('SELECT VALUE FROM program_user_config WHERE USER_ID=\''.User('STAFF_ID').'\' AND TITLE=\'ROUNDING\' AND PROGRAM=\'Gradebook\' '));
             if(count($rounding))
                 $_SESSION['ROUNDING']=$rounding[1]['VALUE'];
