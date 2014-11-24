@@ -102,7 +102,7 @@ if(!$_REQUEST['id'])
 			$course_id = $course['COURSE_ID'];
 			$course_period_id = $course['COURSE_PERIOD_ID'];
 			$course_title = $course['TITLE'];
-                       //echo $staff_id.'+'.$course_id.'+'.$course_period_id.'+'.$course_title.'|';
+                       #echo $staff_id.'+'.$course_id.'+'.$course_period_id.'+'.$course_title.'|';
 			$assignments_RET = DBGet(DBQuery('SELECT ASSIGNMENT_ID,TITLE,POINTS FROM gradebook_assignments WHERE STAFF_ID=\''.$staff_id.'\' AND (COURSE_ID=\''.$course_id.'\' OR COURSE_PERIOD_ID=\''.$course_period_id.'\') AND MARKING_PERIOD_ID IN ('.$mp.') ORDER BY DUE_DATE DESC,ASSIGNMENT_ID'));
 			//echo '<pre>'; var_dump($assignments_RET); echo '</pre>';
 
