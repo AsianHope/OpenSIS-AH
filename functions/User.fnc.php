@@ -31,7 +31,7 @@ function User($item)
 	if(!$_SESSION['UserSyear'])
 		$_SESSION['UserSyear'] = $DefaultSyear;
 
-	if(!$_openSIS['User'] || $_SESSION['UserSyear']!=$_openSIS['User'][1]['SYEAR'])
+	if(!$_openSIS['User'])
 	{
 		if($_SESSION['STAFF_ID'])
 		{
